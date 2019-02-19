@@ -3,6 +3,8 @@
     package="com.talview.assignment">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".application.MyApp"
         android:allowBackup="true"

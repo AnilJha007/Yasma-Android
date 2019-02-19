@@ -6,6 +6,7 @@ import com.talview.assignment.BuildConfig;
 import com.talview.assignment.di.AppModule;
 import com.talview.assignment.di.ApplicationComponent;
 import com.talview.assignment.di.DaggerApplicationComponent;
+import com.talview.assignment.di.DbModule;
 import com.talview.assignment.di.NetModule;
 
 public class MyApp extends Application {
@@ -17,7 +18,9 @@ public class MyApp extends Application {
         super.onCreate();
 
         component = DaggerApplicationComponent.builder().appModule(new AppModule(this)).
-                netModule(new NetModule(BuildConfig.BASE_URL)).build();
+                netModule(new NetModule(BuildConfig.BASE_URL)).
+                dbModule(new DbModule()).
+                build();
     }
 
     public static ApplicationComponent getApplicationComponent() {
