@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.talview.assignment.R;
+import com.talview.assignment.application.MyApp;
 
 public class HomeActivity extends AppCompatActivity {
 
