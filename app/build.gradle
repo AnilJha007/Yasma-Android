@@ -11,17 +11,60 @@ android {
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
+        debug {
+            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField("String", "BASE_URL", "\"https://jsonplaceholder.typicode.com/\"")
         }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    dataBinding {
+        enabled = true
     }
 }
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation 'com.android.support:appcompat-v7:28.0.0'
-    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation "com.android.support:appcompat-v7:$support_lib_version"
+    implementation "com.android.support:design:$support_lib_version"
+
+    // constraint layout
+    implementation "com.android.support.constraint:constraint-layout:$constraint_layout_version"
+
+    // live data using view model
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
+    // library for rxjava
+    implementation "io.reactivex.rxjava2:rxjava:$rx_version"
+    implementation "io.reactivex.rxjava2:rxandroid:$rx_version"
+
+    // server api call as well as parse json response
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$retrofit_rx_adapter"
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_lib_version"
+
+    // image display and cache
+    implementation "com.squareup.picasso:picasso:$picasso_lib_version"
+
+    // room db for data storage
+    implementation "android.arch.persistence.room:runtime:$room_database_version"
+    annotationProcessor "android.arch.persistence.room:compiler:$room_database_version"
+
+    // provides support for multiple size phone
+    implementation "com.intuit.sdp:sdp-android:$sdp_lib_version"
+
+    // library for dependency injection
+    implementation "com.google.dagger:dagger:$dagger_version"
+    annotationProcessor "com.google.dagger:dagger-compiler:$dagger_version"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
