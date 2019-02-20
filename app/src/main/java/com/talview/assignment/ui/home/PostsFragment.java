@@ -52,20 +52,14 @@ public class PostsFragment extends Fragment {
     private void observeData() {
 
         // observe posts data here
-        viewModel.getPosts().observe(getActivity(), new Observer<List<PostUser>>() {
-            @Override
-            public void onChanged(@Nullable List<PostUser> postEntities) {
-                adapter.setData(postEntities);
-            }
+        viewModel.getPosts().observe(getActivity(), postEntities -> {
+            adapter.setData(postEntities);
         });
 
         // observe error data here
-        viewModel.getError().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String errorMessage) {
-                if (errorMessage != null)
-                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
+        viewModel.getError().observe(getActivity(), errorMessage -> {
+            if (errorMessage != null)
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         });
     }
 

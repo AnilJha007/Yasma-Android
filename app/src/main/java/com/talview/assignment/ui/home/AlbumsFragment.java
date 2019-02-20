@@ -55,19 +55,13 @@ public class AlbumsFragment extends Fragment {
     private void observeData() {
 
         // get albums data here
-        viewModel.getAlbums().observe(getActivity(), new Observer<List<AlbumUser>>() {
-            @Override
-            public void onChanged(@Nullable List<AlbumUser> albumUsers) {
-                adapter.setData(albumUsers);
-            }
+        viewModel.getAlbums().observe(getActivity(), albumUsers -> {
+            adapter.setData(albumUsers);
         });
 
         // get error data here
-        viewModel.getError().observe(getActivity(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String errorMessage) {
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-            }
+        viewModel.getError().observe(getActivity(), errorMessage -> {
+            Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
         });
 
     }
