@@ -13,9 +13,14 @@ import com.talview.assignment.databinding.ItemPostListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+interface ClickListener {
+    void clickedPosition(int clickedPosition, int userId, int postId);
+}
+
 class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.PostsViewHolder> {
 
     private ArrayList<PostUser> postUsers = new ArrayList<>();
+    private ClickListener clickListener;
 
     @NonNull
     @Override
@@ -42,16 +47,21 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.Posts
 
         public PostsViewHolder(@NonNull ItemPostListBinding itemPostListBinding) {
             super(itemPostListBinding.getRoot());
-            this.binding = itemPostListBinding;
+            binding = itemPostListBinding;
+
+            // send clicked position back to associated fragment
+            binding.cardParent.setOnClickListener(v -> clickListener.clickedPosition(getAdapterPosition(), postUsers.get(getAdapterPosition()).getUser_id(), postUsers.get(getAdapterPosition()).getId()));
+
         }
 
         private void bindDataWithView(int position) {
             PostUser postUser = postUsers.get(position);
             binding.setPostUser(postUser);
         }
+
     }
 
-    public void setData(List<PostUser> posts) {
+    void setData(List<PostUser> posts) {
 
         if (postUsers == null)
             postUsers = new ArrayList<>();
@@ -61,5 +71,9 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.Posts
         postUsers.addAll(posts);
         notifyDataSetChanged();
 
+    }
+
+    void setOnClickListener(ClickListener onClickListener) {
+        clickListener = onClickListener;
     }
 }

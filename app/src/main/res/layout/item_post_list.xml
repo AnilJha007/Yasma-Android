@@ -8,9 +8,11 @@
         <variable
             name="postUser"
             type="com.talview.assignment.database.entity.PostUser" />
+
     </data>
 
     <android.support.v7.widget.CardView
+        android:id="@+id/card_parent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_7sdp">
@@ -57,10 +59,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_10sdp"
-                android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_11sdp"
                 android:text="@{postUser.name}"
                 android:textColor="@color/colorMediumPurple"
+                android:textSize="@dimen/_11sdp"
                 app:layout_constraintBaseline_toBaselineOf="@+id/tvPostedBy"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/tvPostedBy"

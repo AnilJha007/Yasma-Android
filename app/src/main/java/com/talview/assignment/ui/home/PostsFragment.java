@@ -1,11 +1,10 @@
 package com.talview.assignment.ui.home;
 
-import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -14,15 +13,14 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.talview.assignment.application.MyApp;
-import com.talview.assignment.database.entity.PostUser;
 import com.talview.assignment.databinding.FragmentPostsBinding;
 import com.talview.assignment.ui.home.di.DaggerPostComponent;
-
-import java.util.List;
+import com.talview.assignment.ui.postdetails.PostDetailsActivity;
+import com.talview.assignment.utils.ConstantUtil;
 
 import javax.inject.Inject;
 
-public class PostsFragment extends Fragment {
+public class PostsFragment extends Fragment implements ClickListener {
 
     @Inject
     PostViewModelFactory factory;
@@ -52,15 +50,12 @@ public class PostsFragment extends Fragment {
     private void observeData() {
 
         // observe posts data here
-        viewModel.getPosts().observe(getActivity(), postEntities -> {
-            adapter.setData(postEntities);
-        });
+        viewModel.getPosts().observe(getActivity(), postEntities ->
+                adapter.setData(postEntities));
 
         // observe error data here
-        viewModel.getError().observe(getActivity(), errorMessage -> {
-            if (errorMessage != null)
-                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
-        });
+        viewModel.getError().observe(getActivity(), errorMessage ->
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show());
     }
 
     private void setUpDi() {
@@ -72,6 +67,15 @@ public class PostsFragment extends Fragment {
         adapter = new PostRecyclerAdapter();
         binding.recyclerPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
         binding.recyclerPosts.setAdapter(adapter);
+        adapter.setOnClickListener(this);
 
+    }
+
+    @Override
+    public void clickedPosition(int clickedPosition, int userId, int postId) {
+        Intent intentToPostDetails = new Intent(getActivity(), PostDetailsActivity.class);
+        intentToPostDetails.putExtra(ConstantUtil.USER_ID, userId);
+        intentToPostDetails.putExtra(ConstantUtil.POST_ID, postId);
+        startActivity(intentToPostDetails);
     }
 }
