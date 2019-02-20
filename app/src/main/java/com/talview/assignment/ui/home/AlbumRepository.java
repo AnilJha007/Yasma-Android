@@ -2,7 +2,9 @@ package com.talview.assignment.ui.home;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 
+import com.talview.assignment.R;
 import com.talview.assignment.database.DBManager;
 import com.talview.assignment.database.entity.AlbumEntity;
 import com.talview.assignment.database.entity.AlbumUser;
@@ -25,6 +27,8 @@ public class AlbumRepository {
     private Application context;
     private InternetUtil internetUtil;
     private BaseSchedulerProvider schedulerProvider;
+    private MutableLiveData<String> errorMsg;
+
 
     @Inject
     public AlbumRepository(ApiInterface apiInterface, DBManager dbManager, Application context, InternetUtil internetUtil, BaseSchedulerProvider schedulerProvider) {
@@ -33,12 +37,31 @@ public class AlbumRepository {
         this.context = context;
         this.internetUtil = internetUtil;
         this.schedulerProvider = schedulerProvider;
+
+        errorMsg = new MutableLiveData<>();
     }
 
+    // get error data
+    public MutableLiveData<String> getErrorMsg() {
+        return errorMsg;
+    }
+
+    // get user albums
     public LiveData<List<AlbumUser>> getUserAlbums() {
 
-        //get albums data from server
-        getAlbumsDataFromServerAndInsertIntoDB();
+        int rowCount = dbManager.getAlbumDao().getRowsCount();
+
+        if (rowCount == 0) {
+
+            // check if internet is available or not
+            if (!internetUtil.isNetworkAvailable()) {
+                errorMsg.setValue(context.getResources().getString(R.string.internet_not_available));
+            } else {
+                //get albums data from server
+                getAlbumsDataFromServerAndInsertIntoDB();
+            }
+
+        }
 
         return dbManager.getAlbumDao().getAllAlbumAndUser();
     }
@@ -57,6 +80,7 @@ public class AlbumRepository {
 
             @Override
             public void onError(Throwable e) {
+                errorMsg.setValue(e.getMessage());
             }
 
             @Override

@@ -1,6 +1,7 @@
 package com.talview.assignment.ui.home;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.talview.assignment.database.entity.PostUser;
@@ -15,7 +16,13 @@ public class PostViewModel extends ViewModel {
         this.postRepository = postRepository;
     }
 
+    // get users posts
     public LiveData<List<PostUser>> getPosts() {
         return postRepository.getUserPosts();
+    }
+
+    // get error message
+    public MutableLiveData<String> getError() {
+        return postRepository.getError();
     }
 }

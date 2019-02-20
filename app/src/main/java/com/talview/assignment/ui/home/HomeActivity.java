@@ -42,7 +42,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onPageSelected(int position) {
-                tabLayout.setScrollPosition(position, 0f, true);
+                tabLayout.getTabAt(position).select();
             }
 
             @Override

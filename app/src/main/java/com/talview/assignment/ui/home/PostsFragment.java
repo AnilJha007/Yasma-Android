@@ -5,11 +5,13 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.database.entity.PostUser;
@@ -42,6 +44,14 @@ public class PostsFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(this, factory).get(PostViewModel.class);
 
+        observeData();
+
+        return binding.getRoot();
+    }
+
+    private void observeData() {
+
+        // observe posts data here
         viewModel.getPosts().observe(getActivity(), new Observer<List<PostUser>>() {
             @Override
             public void onChanged(@Nullable List<PostUser> postEntities) {
@@ -49,7 +59,14 @@ public class PostsFragment extends Fragment {
             }
         });
 
-        return binding.getRoot();
+        // observe error data here
+        viewModel.getError().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String errorMessage) {
+                if (errorMessage != null)
+                    Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     private void setUpDi() {

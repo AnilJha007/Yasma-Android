@@ -2,6 +2,7 @@ package com.talview.assignment.database.dao;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.Query;
@@ -19,4 +20,8 @@ public interface AlbumDao {
 
     @Query("select albums.id, albums.user_id, albums.title, users.name from albums, users where albums.user_id = users.id")
     LiveData<List<AlbumUser>> getAllAlbumAndUser();
+
+    @Query("select count(*) from albums, users where albums.user_id = users.id")
+    int getRowsCount();
+
 }

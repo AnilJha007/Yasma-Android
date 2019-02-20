@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
@@ -12,6 +13,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.talview.assignment.R;
 import com.talview.assignment.application.MyApp;
@@ -45,6 +47,14 @@ public class AlbumsFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(this, factory).get(AlbumViewModel.class);
 
+        observeData();
+
+        return binding.getRoot();
+    }
+
+    private void observeData() {
+
+        // get albums data here
         viewModel.getAlbums().observe(getActivity(), new Observer<List<AlbumUser>>() {
             @Override
             public void onChanged(@Nullable List<AlbumUser> albumUsers) {
@@ -52,8 +62,14 @@ public class AlbumsFragment extends Fragment {
             }
         });
 
+        // get error data here
+        viewModel.getError().observe(getActivity(), new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String errorMessage) {
+                Toast.makeText(getActivity(), errorMessage, Toast.LENGTH_SHORT).show();
+            }
+        });
 
-        return binding.getRoot();
     }
 
     private void setUpDI() {
