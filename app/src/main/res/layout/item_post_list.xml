@@ -6,55 +6,68 @@
     <data>
 
         <variable
-            name="post"
-            type="com.talview.assignment.database.entity.PostEntity" />
+            name="postUser"
+            type="com.talview.assignment.database.entity.PostUser" />
     </data>
 
-    <android.support.constraint.ConstraintLayout
+    <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="@dimen/_12sdp">
+        android:layout_margin="@dimen/_7sdp">
 
-        <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+        <android.support.constraint.ConstraintLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_15sdp"
-            tools:text="sunt aut facere repellat provident occaecati excepturi optio reprehenderit" />
+            android:padding="@dimen/_12sdp">
 
-        <TextView
-            android:id="@+id/tvBody"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/colorMediumPurple"
-            app:layout_constraintTop_toBottomOf="@+id/tvTitle"
-            tools:text="quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto" />
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text="@{postUser.title}"
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_15sdp"
+                tools:text="sunt aut facere repellat provident occaecati excepturi optio reprehenderit" />
 
-        <TextView
-            android:id="@+id/tvPostedBy"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@android:color/black"
-            android:textSize="@dimen/_10sdp"
-            app:layout_constraintEnd_toStartOf="@id/tvPostedByValue"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tvBody"
-            tools:text="Posted By: " />
+            <TextView
+                android:id="@+id/tvBody"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="@{postUser.body}"
+                android:textColor="@color/colorMediumPurple"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
+                tools:text="quia et suscipit\nsuscipit recusandae consequuntur expedita et cum\nreprehenderit molestiae ut ut quas totam\nnostrum rerum est autem sunt rem eveniet architecto" />
 
-        <TextView
-            android:id="@+id/tvPostedByValue"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:textColor="@color/colorMediumPurple"
-            app:layout_constraintBaseline_toBaselineOf="@+id/tvPostedBy"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/tvPostedBy"
-            app:layout_constraintTop_toBottomOf="@+id/tvBody"
-            tools:text="Leanne Graham" />
-    </android.support.constraint.ConstraintLayout>
+            <TextView
+                android:id="@+id/tvPostedBy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:text="Posted By: "
+                android:textColor="@android:color/black"
+                android:textSize="@dimen/_10sdp"
+                app:layout_constraintEnd_toStartOf="@id/tvPostedByValue"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvBody"
+                tools:text="Posted By: " />
+
+            <TextView
+                android:id="@+id/tvPostedByValue"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:textSize="@dimen/_11sdp"
+                android:text="@{postUser.name}"
+                android:textColor="@color/colorMediumPurple"
+                app:layout_constraintBaseline_toBaselineOf="@+id/tvPostedBy"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/tvPostedBy"
+                app:layout_constraintTop_toBottomOf="@+id/tvBody"
+                tools:text="Leanne Graham" />
+
+        </android.support.constraint.ConstraintLayout>
+    </android.support.v7.widget.CardView>
 
 </layout>

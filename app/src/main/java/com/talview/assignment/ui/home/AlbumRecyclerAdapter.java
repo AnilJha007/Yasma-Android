@@ -7,10 +7,16 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.talview.assignment.R;
+import com.talview.assignment.database.entity.AlbumUser;
+import com.talview.assignment.database.entity.PostUser;
 import com.talview.assignment.databinding.ItemAlbumListBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.AlbumViewHolder> {
 
+    private ArrayList<AlbumUser> albumUsers = new ArrayList<>();
 
     @NonNull
     @Override
@@ -28,7 +34,7 @@ class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.Alb
 
     @Override
     public int getItemCount() {
-        return 0;
+        return albumUsers.size();
     }
 
     public class AlbumViewHolder extends RecyclerView.ViewHolder {
@@ -41,7 +47,20 @@ class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.Alb
         }
 
         public void bindDataWithView(int position) {
-
+            AlbumUser albumUser = albumUsers.get(position);
+            binding.setAlbumUser(albumUser);
         }
+    }
+
+    public void setData(List<AlbumUser> albums) {
+
+        if (albumUsers == null)
+            albumUsers = new ArrayList<>();
+        else
+            albumUsers.clear();
+
+        albumUsers.addAll(albums);
+        notifyDataSetChanged();
+
     }
 }

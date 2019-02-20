@@ -6,16 +6,12 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
-import android.util.Log;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.talview.assignment.R;
 import com.talview.assignment.application.MyApp;
-import com.talview.assignment.database.entity.PostEntity;
 import com.talview.assignment.database.entity.PostUser;
 import com.talview.assignment.databinding.FragmentPostsBinding;
 import com.talview.assignment.ui.home.di.DaggerPostComponent;
@@ -31,6 +27,7 @@ public class PostsFragment extends Fragment {
 
     private FragmentPostsBinding binding;
     private PostViewModel viewModel;
+    private PostRecyclerAdapter adapter;
 
 
     @Nullable
@@ -48,7 +45,7 @@ public class PostsFragment extends Fragment {
         viewModel.getPosts().observe(getActivity(), new Observer<List<PostUser>>() {
             @Override
             public void onChanged(@Nullable List<PostUser> postEntities) {
-
+                adapter.setData(postEntities);
             }
         });
 
@@ -61,10 +58,9 @@ public class PostsFragment extends Fragment {
 
     private void setUpRecyclerView() {
 
-        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getActivity(), DividerItemDecoration.VERTICAL);
-        dividerItemDecoration.setDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.bd_recycler_divider));
-        binding.recyclerPosts.addItemDecoration(dividerItemDecoration);
-        binding.recyclerPosts.setAdapter(new PostRecyclerAdapter());
+        adapter = new PostRecyclerAdapter();
+        binding.recyclerPosts.setLayoutManager(new LinearLayoutManager(getActivity()));
+        binding.recyclerPosts.setAdapter(adapter);
 
     }
 }

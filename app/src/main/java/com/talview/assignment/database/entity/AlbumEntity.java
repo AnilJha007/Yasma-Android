@@ -5,15 +5,14 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.OnConflictStrategy;
 import android.arch.persistence.room.PrimaryKey;
-import android.service.restrictions.RestrictionsReceiver;
 
-@Entity(tableName = "posts",
+@Entity(tableName = "albums",
         foreignKeys = @ForeignKey(
                 entity = UserEntity.class,
                 parentColumns = "id",
                 childColumns = "user_id",
                 onDelete = OnConflictStrategy.IGNORE))
-public class PostEntity {
+public class AlbumEntity {
 
     @PrimaryKey
     int id;
@@ -22,8 +21,6 @@ public class PostEntity {
     int userId;
 
     String title;
-
-    String body;
 
     public int getId() {
         return id;
@@ -49,11 +46,4 @@ public class PostEntity {
         this.title = title;
     }
 
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
 }

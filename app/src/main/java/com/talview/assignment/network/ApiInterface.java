@@ -1,5 +1,6 @@
 package com.talview.assignment.network;
 
+import com.talview.assignment.database.entity.AlbumEntity;
 import com.talview.assignment.database.entity.PostEntity;
 import com.talview.assignment.database.entity.UserEntity;
 
@@ -15,4 +16,7 @@ public interface ApiInterface {
 
     @GET("/users")
     Observable<List<UserEntity>> getUsers();
+
+    @GET("/albums")
+    Observable<List<AlbumEntity>> getAlbums();
 }

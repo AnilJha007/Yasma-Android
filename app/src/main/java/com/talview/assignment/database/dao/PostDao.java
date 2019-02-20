@@ -17,6 +17,6 @@ public interface PostDao {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     void insertPosts(List<PostEntity> posts);
 
-    @Query("select users.id, posts.id, posts.title, posts.body, users.name from posts INNER JOIN users ON posts.user_id = users.id")
+    @Query("select posts.id, posts.user_id, posts.title, posts.body, users.name from posts, users where posts.user_id = users.id")
     LiveData<List<PostUser>> getAllPostAndUser();
 }

@@ -7,10 +7,15 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.talview.assignment.R;
+import com.talview.assignment.database.entity.PostUser;
 import com.talview.assignment.databinding.ItemPostListBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.PostsViewHolder> {
 
+    private ArrayList<PostUser> postUsers = new ArrayList<>();
 
     @NonNull
     @Override
@@ -28,13 +33,12 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.Posts
 
     @Override
     public int getItemCount() {
-        return 0;
+        return postUsers.size();
     }
 
     public class PostsViewHolder extends RecyclerView.ViewHolder {
 
         private ItemPostListBinding binding;
-
 
         public PostsViewHolder(@NonNull ItemPostListBinding itemPostListBinding) {
             super(itemPostListBinding.getRoot());
@@ -42,7 +46,20 @@ class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.Posts
         }
 
         private void bindDataWithView(int position) {
-
+            PostUser postUser = postUsers.get(position);
+            binding.setPostUser(postUser);
         }
+    }
+
+    public void setData(List<PostUser> posts) {
+
+        if (postUsers == null)
+            postUsers = new ArrayList<>();
+        else
+            postUsers.clear();
+
+        postUsers.addAll(posts);
+        notifyDataSetChanged();
+
     }
 }
