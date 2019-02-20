@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import com.talview.assignment.R;
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.database.entity.PostEntity;
+import com.talview.assignment.database.entity.PostUser;
 import com.talview.assignment.databinding.FragmentPostsBinding;
 import com.talview.assignment.ui.home.di.DaggerPostComponent;
 
@@ -44,9 +45,9 @@ public class PostsFragment extends Fragment {
 
         viewModel = ViewModelProviders.of(this, factory).get(PostViewModel.class);
 
-        viewModel.getPosts().observe(getActivity(), new Observer<List<PostEntity>>() {
+        viewModel.getPosts().observe(getActivity(), new Observer<List<PostUser>>() {
             @Override
-            public void onChanged(@Nullable List<PostEntity> postEntities) {
+            public void onChanged(@Nullable List<PostUser> postEntities) {
 
             }
         });

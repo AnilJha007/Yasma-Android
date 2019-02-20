@@ -3,7 +3,7 @@ package com.talview.assignment.ui.home;
 import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.ViewModel;
 
-import com.talview.assignment.database.entity.PostEntity;
+import com.talview.assignment.database.entity.PostUser;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ public class PostViewModel extends ViewModel {
         this.postRepository = postRepository;
     }
 
-    public LiveData<List<PostEntity>> getPosts() {
+    public LiveData<List<PostUser>> getPosts() {
         return postRepository.getUserPosts();
     }
 }
