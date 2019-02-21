@@ -11,6 +11,7 @@ import java.util.List;
 public class PostViewModel extends ViewModel {
 
     private PostRepository postRepository;
+    private LiveData<List<PostUser>> postUserLiveData;
 
     public PostViewModel(PostRepository postRepository) {
         this.postRepository = postRepository;
@@ -18,7 +19,10 @@ public class PostViewModel extends ViewModel {
 
     // get users posts
     public LiveData<List<PostUser>> getPosts() {
-        return postRepository.getUserPosts();
+        if (postUserLiveData == null) {
+            postUserLiveData = postRepository.getUserPosts();
+        }
+        return postUserLiveData;
     }
 
     // get error message

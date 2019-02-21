@@ -11,6 +11,7 @@ import java.util.List;
 public class AlbumViewModel extends ViewModel {
 
     private AlbumRepository albumRepository;
+    private LiveData<List<AlbumUser>> albumUserLiveData;
 
     public AlbumViewModel(AlbumRepository albumRepository) {
         this.albumRepository = albumRepository;
@@ -18,7 +19,10 @@ public class AlbumViewModel extends ViewModel {
 
     // get albums data here
     public LiveData<List<AlbumUser>> getAlbums() {
-        return albumRepository.getUserAlbums();
+        if (albumUserLiveData == null) {
+            albumUserLiveData = albumRepository.getUserAlbums();
+        }
+        return albumUserLiveData;
     }
 
     // get error data here

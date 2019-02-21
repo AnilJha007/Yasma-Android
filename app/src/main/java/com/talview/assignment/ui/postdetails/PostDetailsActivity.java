@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
@@ -13,7 +12,7 @@ import android.widget.Toast;
 import com.talview.assignment.R;
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.databinding.ActivityPostDetailsBinding;
-import com.talview.assignment.ui.postdetails.di.DaggerPostDetailsComponent;
+import com.talview.assignment.ui.DaggerYasmaComponent;
 import com.talview.assignment.utils.ConstantUtil;
 
 import javax.inject.Inject;
@@ -67,8 +66,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     }
 
     private void setUpDI() {
-
-        DaggerPostDetailsComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
+        DaggerYasmaComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
     }
 
     private void observeData() {

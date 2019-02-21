@@ -13,7 +13,7 @@ import android.widget.Toast;
 import com.talview.assignment.R;
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.databinding.ActivityAlbumDetailsBinding;
-import com.talview.assignment.ui.albumdetail.di.DaggerAlbumDetailsComponent;
+import com.talview.assignment.ui.DaggerYasmaComponent;
 import com.talview.assignment.ui.fullscreenimage.FullScreenImageActivity;
 import com.talview.assignment.ui.postdetails.PostDetailsViewModel;
 import com.talview.assignment.utils.ConstantUtil;
@@ -90,7 +90,7 @@ public class AlbumDetailsActivity extends AppCompatActivity implements OnAlbumCl
     }
 
     private void setUpDI() {
-        DaggerAlbumDetailsComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
+        DaggerYasmaComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
     }
 
     @Override

@@ -14,9 +14,8 @@ import android.widget.Toast;
 
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.databinding.FragmentAlbumsBinding;
+import com.talview.assignment.ui.DaggerYasmaComponent;
 import com.talview.assignment.ui.albumdetail.AlbumDetailsActivity;
-import com.talview.assignment.ui.home.di.DaggerAlbumComponent;
-import com.talview.assignment.ui.postdetails.PostDetailsActivity;
 import com.talview.assignment.utils.ConstantUtil;
 
 import javax.inject.Inject;
@@ -60,7 +59,7 @@ public class AlbumsFragment extends Fragment implements ClickListener {
     }
 
     private void setUpDI() {
-        DaggerAlbumComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
+        DaggerYasmaComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
     }
 
     private void setUpRecyclerView() {

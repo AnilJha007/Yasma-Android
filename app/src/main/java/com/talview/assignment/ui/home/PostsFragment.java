@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.talview.assignment.application.MyApp;
 import com.talview.assignment.databinding.FragmentPostsBinding;
-import com.talview.assignment.ui.home.di.DaggerPostComponent;
+import com.talview.assignment.ui.DaggerYasmaComponent;
 import com.talview.assignment.ui.postdetails.PostDetailsActivity;
 import com.talview.assignment.utils.ConstantUtil;
 
@@ -59,7 +59,7 @@ public class PostsFragment extends Fragment implements ClickListener {
     }
 
     private void setUpDi() {
-        DaggerPostComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
+        DaggerYasmaComponent.builder().applicationComponent(MyApp.getApplicationComponent()).build().inject(this);
     }
 
     private void setUpRecyclerView() {

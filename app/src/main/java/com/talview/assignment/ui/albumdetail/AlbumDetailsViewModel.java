@@ -1,6 +1,7 @@
 package com.talview.assignment.ui.albumdetail;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
 import com.talview.assignment.database.entity.AlbumsDetailsEntity;
@@ -13,23 +14,28 @@ import java.util.List;
 public class AlbumDetailsViewModel extends ViewModel {
 
     private AlbumDetailsRepository albumDetailsRepository;
+    private LiveData<List<AlbumsDetailsEntity>> albumListLiveData;
 
     public AlbumDetailsViewModel(AlbumDetailsRepository albumDetailsRepository) {
         this.albumDetailsRepository = albumDetailsRepository;
     }
 
     // get error message
-    public LiveData<String> getError() {
+    public MutableLiveData<String> getError() {
         return albumDetailsRepository.getErrorMsg();
     }
 
     // get loading state
-    public LiveData<Boolean> getIsLoading() {
+    public MutableLiveData<Boolean> getIsLoading() {
         return albumDetailsRepository.getIsLoading();
     }
 
     // get album details
     public LiveData<List<AlbumsDetailsEntity>> getAlbumDetails(int albumId) {
-        return albumDetailsRepository.getAlbums(albumId);
+
+        if (albumListLiveData == null) {
+            albumListLiveData = albumDetailsRepository.getAlbums(albumId);
+        }
+        return albumListLiveData;
     }
 }
