@@ -60,9 +60,10 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         setSupportActionBar(binding.toolbar.toolbarCommon);
 
-        if (getSupportActionBar() != null)
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setTitle(getString(R.string.post_details));
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void setUpDI() {

@@ -72,10 +72,10 @@ public class PostsFragment extends Fragment implements ClickListener {
     }
 
     @Override
-    public void clickedPosition(int clickedPosition, int userId, int postId) {
+    public void clickedPosition(int clickedPosition, int userId, int postOrAlbumId) {
         Intent intentToPostDetails = new Intent(getActivity(), PostDetailsActivity.class);
         intentToPostDetails.putExtra(ConstantUtil.USER_ID, userId);
-        intentToPostDetails.putExtra(ConstantUtil.POST_ID, postId);
+        intentToPostDetails.putExtra(ConstantUtil.POST_ID, postOrAlbumId);
         startActivity(intentToPostDetails);
     }
 }

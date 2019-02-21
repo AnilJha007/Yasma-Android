@@ -14,9 +14,11 @@ import com.talview.assignment.databinding.ItemAlbumListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
+
 class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.AlbumViewHolder> {
 
     private ArrayList<AlbumUser> albumUsers = new ArrayList<>();
+    private ClickListener clickListener;
 
     @NonNull
     @Override
@@ -43,7 +45,10 @@ class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.Alb
 
         public AlbumViewHolder(ItemAlbumListBinding itemAlbumListBinding) {
             super(itemAlbumListBinding.getRoot());
-            this.binding = itemAlbumListBinding;
+            binding = itemAlbumListBinding;
+
+            // send clicked position back to associated fragment
+            binding.cardParent.setOnClickListener(v -> clickListener.clickedPosition(getAdapterPosition(), albumUsers.get(getAdapterPosition()).getUser_id(), albumUsers.get(getAdapterPosition()).getId()));
         }
 
         public void bindDataWithView(int position) {
@@ -62,5 +67,9 @@ class AlbumRecyclerAdapter extends RecyclerView.Adapter<AlbumRecyclerAdapter.Alb
         albumUsers.addAll(albums);
         notifyDataSetChanged();
 
+    }
+
+    void setOnClickListener(ClickListener onClickListener) {
+        clickListener = onClickListener;
     }
 }

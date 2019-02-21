@@ -20,7 +20,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.postdetails.PostDetailsActivity"></activity>
+        <activity android:name=".ui.postdetails.PostDetailsActivity" />
+        <activity android:name=".ui.albumdetail.AlbumDetailsActivity" />
+        <activity android:name=".ui.fullscreenimage.FullScreenImageActivity"></activity>
     </application>
 
 </manifest>

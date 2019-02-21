@@ -13,11 +13,9 @@ import com.talview.assignment.databinding.ItemPostListBinding;
 import java.util.ArrayList;
 import java.util.List;
 
-interface ClickListener {
-    void clickedPosition(int clickedPosition, int userId, int postId);
-}
 
 class PostRecyclerAdapter extends RecyclerView.Adapter<PostRecyclerAdapter.PostsViewHolder> {
+
 
     private ArrayList<PostUser> postUsers = new ArrayList<>();
     private ClickListener clickListener;
