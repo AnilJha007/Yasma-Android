@@ -4,7 +4,7 @@ import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -26,6 +26,7 @@ public class PostDetailsActivity extends AppCompatActivity {
     private ActivityPostDetailsBinding binding;
     private PostDetailsViewModel viewModel;
     private int postId, userId;
+    private CommentsRecyclerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +44,16 @@ public class PostDetailsActivity extends AppCompatActivity {
 
         setUpToolbar();
 
+        setUpCommentRecyclerView();
+
         observeData();
 
+    }
+
+    private void setUpCommentRecyclerView() {
+        adapter = new CommentsRecyclerAdapter();
+        binding.recyclerComments.setLayoutManager(new LinearLayoutManager(this));
+        binding.recyclerComments.setAdapter(adapter);
     }
 
     private void setUpToolbar() {
@@ -78,7 +87,7 @@ public class PostDetailsActivity extends AppCompatActivity {
         });
 
         // get comments data
-        viewModel.getComments(postId).observe(this, comments -> Log.d("PostDetails", "" + comments.size()));
+        viewModel.getComments(postId).observe(this, comments -> adapter.setData(comments));
 
     }
 
