@@ -15,7 +15,6 @@ import com.talview.assignment.application.MyApp;
 import com.talview.assignment.databinding.ActivityAlbumDetailsBinding;
 import com.talview.assignment.ui.DaggerYasmaComponent;
 import com.talview.assignment.ui.fullscreenimage.FullScreenImageActivity;
-import com.talview.assignment.ui.postdetails.PostDetailsViewModel;
 import com.talview.assignment.utils.ConstantUtil;
 
 import javax.inject.Inject;
