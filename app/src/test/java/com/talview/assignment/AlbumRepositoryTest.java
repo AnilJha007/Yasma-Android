@@ -5,12 +5,10 @@ import android.arch.core.executor.testing.InstantTaskExecutorRule;
 import android.content.res.Resources;
 
 import com.talview.assignment.database.DBManager;
-import com.talview.assignment.database.dao.PostDao;
-import com.talview.assignment.database.dao.UserDao;
-import com.talview.assignment.database.entity.PostEntity;
-import com.talview.assignment.database.entity.UserEntity;
+import com.talview.assignment.database.dao.AlbumDao;
+import com.talview.assignment.database.entity.AlbumEntity;
 import com.talview.assignment.network.ApiInterface;
-import com.talview.assignment.ui.home.PostRepository;
+import com.talview.assignment.ui.home.AlbumRepository;
 import com.talview.assignment.utils.InternetUtil;
 import com.talview.assignment.utils.schedulerProvider.BaseSchedulerProvider;
 import com.talview.assignment.utils.schedulerProvider.TestingSchedulerProvider;
@@ -26,7 +24,7 @@ import java.util.ArrayList;
 
 import io.reactivex.Observable;
 
-public class PostRepositoryTest {
+public class AlbumRepositoryTest {
 
     @Rule
     public InstantTaskExecutorRule rule = new InstantTaskExecutorRule();
@@ -40,7 +38,7 @@ public class PostRepositoryTest {
     @Mock
     private InternetUtil internetUtil;
     @Mock
-    private PostRepository postRepository;
+    private AlbumRepository albumRepository;
 
 
     @Before
@@ -50,45 +48,39 @@ public class PostRepositoryTest {
 
         BaseSchedulerProvider schedulerProvider = new TestingSchedulerProvider();
 
-        postRepository = Mockito.spy(new PostRepository(apiInterface, dbManager, context,
+        albumRepository = Mockito.spy(new AlbumRepository(apiInterface, dbManager, context,
                 internetUtil, schedulerProvider));
 
     }
 
     @Test
-    public void getSuccessfulPostUserData() {
+    public void getSuccessfulAlbumData() {
 
         Mockito.doReturn(true).when(internetUtil).isNetworkAvailable();
 
-        ArrayList<PostEntity> mockListPost = Mockito.mock(ArrayList.class);
-        ArrayList<UserEntity> mockListUser = Mockito.mock(ArrayList.class);
+        ArrayList<AlbumEntity> mockListAlbum = Mockito.mock(ArrayList.class);
 
-        PostDao postDao = Mockito.mock(PostDao.class);
-        UserDao userDao = Mockito.mock(UserDao.class);
+        AlbumDao albumDao = Mockito.mock(AlbumDao.class);
 
-        Mockito.doReturn(postDao).when(dbManager).getPostDao();
-        Mockito.doReturn(userDao).when(dbManager).getUserDao();
+        Mockito.doReturn(albumDao).when(dbManager).getAlbumDao();
 
-        Mockito.doReturn(Observable.just(mockListPost)).when(apiInterface).getPosts();
-        Mockito.doReturn(Observable.just(mockListUser)).when(apiInterface).getUsers();
+        Mockito.doReturn(Observable.just(mockListAlbum)).when(apiInterface).getAlbums();
 
-        postRepository.getUserPosts();
+        albumRepository.getUserAlbums();
 
     }
 
     @Test
-    public void getErrorDataForPostAndUserApi() {
+    public void getErrorDataForAlbumApi() {
 
         Mockito.doReturn(true).when(internetUtil).isNetworkAvailable();
 
-        PostDao postDao = Mockito.mock(PostDao.class);
-        Mockito.doReturn(postDao).when(dbManager).getPostDao();
+        AlbumDao albumDao = Mockito.mock(AlbumDao.class);
+        Mockito.doReturn(albumDao).when(dbManager).getAlbumDao();
 
-        Mockito.doReturn(0).when(postDao).getRowsCount();
+        Mockito.doReturn(0).when(albumDao).getRowsCount();
 
-        Mockito.doReturn(Observable.error(new Exception())).when(apiInterface).getPosts();
-
-        Mockito.doReturn(Observable.error(new Exception())).when(apiInterface).getUsers();
+        Mockito.doReturn(Observable.error(new Exception())).when(apiInterface).getAlbums();
 
         Resources resources = Mockito.mock(Resources.class);
 
@@ -96,7 +88,7 @@ public class PostRepositoryTest {
 
         Mockito.doReturn("error").when(resources).getString(R.string.error_try_later);
 
-        postRepository.getUserPosts();
+        albumRepository.getUserAlbums();
 
     }
 
